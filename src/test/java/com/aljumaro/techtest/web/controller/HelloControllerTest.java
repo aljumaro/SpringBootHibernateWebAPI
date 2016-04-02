@@ -1,5 +1,6 @@
-package com.aljumaro.techtest.controller;
+package com.aljumaro.techtest.web.controller;
 
+import com.aljumaro.techtest.web.HelloController;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
