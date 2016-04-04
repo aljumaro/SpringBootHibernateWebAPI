@@ -5,7 +5,7 @@ package com.aljumaro.techtest.service.logging;
  * @Time 10:43
  * @Author Juanma
  */
-public interface LogginService {
+public interface EnvDependentService {
 
     void log(String message);
 

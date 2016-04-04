@@ -10,7 +10,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
  * Created by Juanma on 02/04/2016.
  */
 @Configuration
-@PropertySource(value = "file:${apps_config_path}/application.properties", ignoreResourceNotFound = true)
+@PropertySource(value = "file:${apps_config_path}/SpringBootHibernateWebAPI/application.properties", ignoreResourceNotFound = true)
 public class PropertyConfiguration {
 
     @Bean

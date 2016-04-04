@@ -1,9 +1,9 @@
 package com.aljumaro.techtest.configuration;
 
-import com.aljumaro.techtest.service.logging.LogginService;
-import com.aljumaro.techtest.service.logging.LogginServiceImpl;
-import com.aljumaro.techtest.service.logging.dev.LogginServiceDevImpl;
-import com.aljumaro.techtest.service.logging.prod.LogginServiceProImpl;
+import com.aljumaro.techtest.service.logging.EnvDependentService;
+import com.aljumaro.techtest.service.logging.EnvDependentServiceImpl;
+import com.aljumaro.techtest.service.logging.dev.EnvDependentServiceDevImpl;
+import com.aljumaro.techtest.service.logging.prod.EnvDependentServiceProImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -16,24 +16,31 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 public class EnvironmentConfiguration {
 
+    /*Loading spring.profiles.active from PropertySource does not load before the Environment is set in the application
+    initializiation. Therefore profile specific beans must be created in a configuration file like this and not by
+    @ComponentScan.*/
+
+    //NOTE: ALL BEANS MUST HAVE A DEFAULT IMPLEMENTATION
+
+    //EnvDependentService by profile
     //DEFAULT PROFILE
     @Bean
     @Profile("default")
-    public LogginService getDefaultLogginService() {
-        return new LogginServiceImpl();
+    public EnvDependentService getDefaultDependentService() {
+        return new EnvDependentServiceImpl();
     }
 
     //DEV PROFILE
     @Bean
     @Profile("dev")
-    public LogginService getDevLogginService(){
-        return new LogginServiceDevImpl();
+    public EnvDependentService getDevDependentService(){
+        return new EnvDependentServiceDevImpl();
     }
 
     //PRO PROFILE
     @Bean
     @Profile("pro")
-    public LogginService getProLogginService(){
-        return new LogginServiceProImpl();
+    public EnvDependentService getProDependentService(){
+        return new EnvDependentServiceProImpl();
     }
 }

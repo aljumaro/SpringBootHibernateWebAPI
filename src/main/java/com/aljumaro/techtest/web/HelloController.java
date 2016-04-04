@@ -1,8 +1,7 @@
 package com.aljumaro.techtest.web;
 
-import com.aljumaro.techtest.service.logging.LogginService;
+import com.aljumaro.techtest.service.logging.EnvDependentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     @Autowired
-    private LogginService logginService;
+    private EnvDependentService envDependentService;
 
     @RequestMapping("/")
     public String index() {
 
-        logginService.log("Hello");
+        envDependentService.log("Hello");
 
         return "Hello Spring Boot from ";
     }
