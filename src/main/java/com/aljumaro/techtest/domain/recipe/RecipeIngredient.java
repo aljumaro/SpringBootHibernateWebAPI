@@ -1,14 +1,26 @@
 package com.aljumaro.techtest.domain.recipe;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
+
 /**
  * @Date 03/04/2016
  * @Time 9:21
  * @Author Juanma
  */
-public class RecipeIngredient {
+@Entity
+public class RecipeIngredient implements Serializable{
 
+    @Id
+    @ManyToOne
     public Recipe recipe;
+
+    @Id
+    @ManyToOne
     public Ingredient ingredient;
+
     public double quantity;
 
     public Recipe getRecipe() {

@@ -1,5 +1,7 @@
 package com.aljumaro.techtest.domain.base;
 
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.util.Date;
 import java.util.UUID;
 
@@ -8,8 +10,10 @@ import java.util.UUID;
  * @Time 9:24
  * @Author Juanma
  */
+@MappedSuperclass
 public class BaseEntity {
 
+    @Id
     private UUID id;
     private Date createdOn;
     private String createdBy;
