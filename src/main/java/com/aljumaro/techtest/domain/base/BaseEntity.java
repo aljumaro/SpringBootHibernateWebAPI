@@ -1,5 +1,7 @@
 package com.aljumaro.techtest.domain.base;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
@@ -14,31 +16,10 @@ import java.util.UUID;
 public class BaseEntity {
 
     @Id
-    private UUID id;
-    private Date createdOn;
-    private String createdBy;
+    @GeneratedValue(generator = "ID_GENERATOR")
+    private Long id;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
     }
 }

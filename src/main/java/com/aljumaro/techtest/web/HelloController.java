@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
+@RequestMapping("/")
 public class HelloController {
 
     @Autowired
     private EnvDependentService envDependentService;
 
-    @RequestMapping("/")
+    @RequestMapping
     public String index() {
 
         envDependentService.log("Hello");
