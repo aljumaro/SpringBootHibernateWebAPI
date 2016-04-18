@@ -10,5 +10,6 @@ import javax.persistence.Entity;
  * @Author Juanma
  */
 @Entity
+@org.hibernate.annotations.Immutable
 public class Bid extends BaseEntity {
 }

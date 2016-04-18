@@ -1,5 +1,5 @@
 @org.hibernate.annotations.GenericGenerator(
-        name = "ID_GENERATOR",
+        name = Constants.ID_GENERATOR,
         strategy = "enhanced-sequence",
         parameters = {
                 @org.hibernate.annotations.Parameter(
@@ -14,3 +14,5 @@
  * @Author Juanma
  */
 package com.aljumaro.techtest.domain;
+
+import com.aljumaro.techtest.utilities.Constants;

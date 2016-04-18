@@ -1,8 +1,9 @@
 package com.aljumaro.techtest.domain.item;
 
 import com.aljumaro.techtest.domain.base.BaseEntity;
+import com.aljumaro.techtest.utilities.Constants;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,6 +25,7 @@ public class Item extends BaseEntity {
             max = 255,
             message = "validation.error.item.name"
     )
+    @Access(AccessType.PROPERTY)
     protected String name;
 
     @NotNull
@@ -38,6 +40,41 @@ public class Item extends BaseEntity {
     )
     protected BigDecimal initialPrice;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    protected AuctionType auctionType = AuctionType.HIGHEST_BID;
+
     protected Item(){}
 
+    public void setName(String name) {
+        this.name = !name.startsWith(Constants.ITEM_NAME)? Constants.ITEM_NAME + name: name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Date getAuctionEnd() {
+        return auctionEnd;
+    }
+
+    public void setAuctionEnd(Date auctionEnd) {
+        this.auctionEnd = auctionEnd;
+    }
+
+    public BigDecimal getInitialPrice() {
+        return initialPrice;
+    }
+
+    public void setInitialPrice(BigDecimal initialPrice) {
+        this.initialPrice = initialPrice;
+    }
+
+    public AuctionType getAuctionType() {
+        return auctionType;
+    }
+
+    public void setAuctionType(AuctionType auctionType) {
+        this.auctionType = auctionType;
+    }
 }
