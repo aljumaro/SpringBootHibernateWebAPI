@@ -21,7 +21,7 @@ public class ItemServiceTest extends BaseServiceTest {
     }
 
     @Test
-    public void testSaveIngredient() {
+    public void testSaveItem() {
         Item item = ItemBuilder.INSTANCE.mock();
 
         itemService.save(item);

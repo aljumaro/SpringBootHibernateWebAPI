@@ -2,10 +2,7 @@ package com.aljumaro.techtest.domain.base;
 
 import com.aljumaro.techtest.utilities.Constants;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -23,11 +20,19 @@ public class BaseEntity {
 
     @NotNull
     @Column(updatable = false)
-    @org.hibernate.annotations.CreationTimestamp
     protected Date createdOn;
 
-    @org.hibernate.annotations.UpdateTimestamp
     protected Date modifiedOn;
+
+    @PrePersist
+    protected void onCreate() {
+        createdOn = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        modifiedOn = new Date();
+    }
 
     public Long getId() {
         return id;

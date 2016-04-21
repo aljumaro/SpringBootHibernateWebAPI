@@ -24,7 +24,8 @@ public class ItemBuilder {
     private String name;
     private Date auctionEnd;
     private MonetaryAmount initialPrice;
-    private Category category;
+    private MonetaryAmount buyNowPrice;
+    private AuctionType auctionType;
 
     private ItemBuilder(){}
 
@@ -43,8 +44,13 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder withCategory(Category category) {
-        this.category = category;
+    public ItemBuilder withBuyNowPrice(MonetaryAmount buyNowPrice) {
+        this.buyNowPrice = buyNowPrice;
+        return this;
+    }
+
+    public ItemBuilder withAuctionType(AuctionType auctionType){
+        this.auctionType = auctionType;
         return this;
     }
 
@@ -52,9 +58,9 @@ public class ItemBuilder {
         Item res = new Item();
         res.auctionEnd = this.auctionEnd;
         res.initialPrice = this.initialPrice;
+        res.buyNowPrice = this.buyNowPrice;
         res.name = this.name;
-        //res.category = this.category;
-
+        res.auctionType = this.auctionType;
         return res;
     }
 
@@ -63,8 +69,10 @@ public class ItemBuilder {
         res.auctionEnd = Date.from(LocalDateTime.now().plus(1, ChronoUnit.MONTHS).toInstant(ZoneOffset.UTC));
         res.initialPrice = new MonetaryAmount(
                 NumberUtils.getRandomBigDecimal(new Random(), 0, 1000, 2), Currency.getInstance(Constants.USD));
+        res.buyNowPrice = new MonetaryAmount(
+                NumberUtils.getRandomBigDecimal(new Random(), 0, 1000, 2), Currency.getInstance(Constants.EUR));
         res.name = UUID.randomUUID().toString();
-        //res.category = new Category();
+        res.auctionType = AuctionType.HIGHEST_BID;
 
         return res;
     }

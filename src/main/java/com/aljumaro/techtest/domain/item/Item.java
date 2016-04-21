@@ -1,17 +1,12 @@
 package com.aljumaro.techtest.domain.item;
 
 import com.aljumaro.techtest.domain.base.BaseEntity;
-import com.aljumaro.techtest.domain.common.converter.MonetaryAmountConverter;
 import com.aljumaro.techtest.domain.common.type.MonetaryAmount;
 import com.aljumaro.techtest.utilities.Constants;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @Date 16/04/2016
