@@ -11,7 +11,25 @@ public interface Constants {
     /*GENERATOR*/
     String ID_GENERATOR = "ID_GENERATOR";
 
-    /*ENTITY CONSTANTS*/
     /*ITEM*/
     String ITEM_NAME = "AUCTION: ";
+
+    /*END DOMAIN CONSTANTS*/
+
+    /*CONVERTER*/
+    /*USERTYPES*/
+    String MONETARY_AMOUNT_USD_TYPE = "monetary_amount_usd";
+    String MONETARY_AMOUNT_EUR_TYPE = "monetary_amount_eur";
+
+    /*PARAMETERS*/
+    String CONVERT_TO_PARAMETER = "convertTo";
+
+    /*END CONVERTERS*/
+
+    /*GENERAL*/
+    /*CURRENCY*/
+    String USD = "USD";
+    String EUR = "EUR";
+
+    /*END GENERAL*/
 }

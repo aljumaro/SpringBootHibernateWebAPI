@@ -1,11 +1,13 @@
 package com.aljumaro.techtest.domain.item;
 
+import com.aljumaro.techtest.domain.common.type.MonetaryAmount;
+import com.aljumaro.techtest.utilities.Constants;
 import com.aljumaro.techtest.utilities.NumberUtils;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
+import java.util.Currency;
 import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
@@ -21,7 +23,7 @@ public class ItemBuilder {
 
     private String name;
     private Date auctionEnd;
-    private BigDecimal initialPrice;
+    private MonetaryAmount initialPrice;
     private Category category;
 
     private ItemBuilder(){}
@@ -36,7 +38,7 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder withInitialPrice(BigDecimal initialPrice) {
+    public ItemBuilder withInitialPrice(MonetaryAmount initialPrice) {
         this.initialPrice = initialPrice;
         return this;
     }
@@ -59,7 +61,8 @@ public class ItemBuilder {
     public Item mock(){
         Item res = new Item();
         res.auctionEnd = Date.from(LocalDateTime.now().plus(1, ChronoUnit.MONTHS).toInstant(ZoneOffset.UTC));
-        res.initialPrice = NumberUtils.getRandomDouble(new Random(), 0, 1000, 2);
+        res.initialPrice = new MonetaryAmount(
+                NumberUtils.getRandomBigDecimal(new Random(), 0, 1000, 2), Currency.getInstance(Constants.USD));
         res.name = UUID.randomUUID().toString();
         //res.category = new Category();
 

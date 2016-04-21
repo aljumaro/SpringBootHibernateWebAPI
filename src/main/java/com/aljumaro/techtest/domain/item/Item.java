@@ -1,6 +1,8 @@
 package com.aljumaro.techtest.domain.item;
 
 import com.aljumaro.techtest.domain.base.BaseEntity;
+import com.aljumaro.techtest.domain.common.converter.MonetaryAmountConverter;
+import com.aljumaro.techtest.domain.common.type.MonetaryAmount;
 import com.aljumaro.techtest.utilities.Constants;
 
 import javax.persistence.*;
@@ -33,25 +35,41 @@ public class Item extends BaseEntity {
     protected Date auctionEnd;
 
     @NotNull
-    @DecimalMin("0.00")
-    @Digits(
-            integer = 10,
-            fraction = 2
-    )
-    protected BigDecimal initialPrice;
-
-    @NotNull
     @Enumerated(EnumType.STRING)
     protected AuctionType auctionType = AuctionType.HIGHEST_BID;
 
-    protected Item(){}
+    @NotNull
+    @org.hibernate.annotations.Type(
+            type = Constants.MONETARY_AMOUNT_USD_TYPE
+    )
+    @org.hibernate.annotations.Columns(
+            columns = {
+                    @Column(name = "BUYNOWPRICE_AMOUNT"),
+                    @Column(name = "BUYNOWPRICE_CURRENCTY", length = 3)
+            }
+    )
+    protected MonetaryAmount buyNowPrice;
 
-    public void setName(String name) {
-        this.name = !name.startsWith(Constants.ITEM_NAME)? Constants.ITEM_NAME + name: name;
-    }
+    @NotNull
+    @org.hibernate.annotations.Type(
+            type = Constants.MONETARY_AMOUNT_EUR_TYPE
+    )
+    @org.hibernate.annotations.Columns(
+            columns = {
+                    @Column(name = "INITIALPRICE_AMOUNT"),
+                    @Column(name = "INITIALPRICE_CURRENCTY", length = 3)
+            }
+    )
+    protected MonetaryAmount initialPrice;
+
+    protected Item(){}
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getAuctionEnd() {
@@ -62,19 +80,27 @@ public class Item extends BaseEntity {
         this.auctionEnd = auctionEnd;
     }
 
-    public BigDecimal getInitialPrice() {
-        return initialPrice;
-    }
-
-    public void setInitialPrice(BigDecimal initialPrice) {
-        this.initialPrice = initialPrice;
-    }
-
     public AuctionType getAuctionType() {
         return auctionType;
     }
 
     public void setAuctionType(AuctionType auctionType) {
         this.auctionType = auctionType;
+    }
+
+    public MonetaryAmount getBuyNowPrice() {
+        return buyNowPrice;
+    }
+
+    public void setBuyNowPrice(MonetaryAmount buyNowPrice) {
+        this.buyNowPrice = buyNowPrice;
+    }
+
+    public MonetaryAmount getInitialPrice() {
+        return initialPrice;
+    }
+
+    public void setInitialPrice(MonetaryAmount initialPrice) {
+        this.initialPrice = initialPrice;
     }
 }

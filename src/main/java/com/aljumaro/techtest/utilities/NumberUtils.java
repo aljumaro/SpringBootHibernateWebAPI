@@ -10,10 +10,10 @@ import java.util.Random;
  */
 public class NumberUtils {
 
-    public static BigDecimal getRandomDouble(final Random random,
-                                             final int lowerBound,
-                                             final int upperBound,
-                                             final int decimalPlaces){
+    public static BigDecimal getRandomBigDecimal(final Random random,
+                                                 final int lowerBound,
+                                                 final int upperBound,
+                                                 final int decimalPlaces){
 
         if(lowerBound < 0 || upperBound <= lowerBound || decimalPlaces < 0){
             throw new IllegalArgumentException("parameter must be: lB >= 0; uB > lB; dP > 0");

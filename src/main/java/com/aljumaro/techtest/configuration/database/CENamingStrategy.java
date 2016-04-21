@@ -17,4 +17,9 @@ public class CENamingStrategy extends PhysicalNamingStrategyStandardImpl{
     public Identifier toPhysicalTableName(Identifier name, JdbcEnvironment context) {
         return (name != null) ? new Identifier(String.format(TABLE_NAME, name), name.isQuoted()): null;
     }
+
+    @Override
+    public Identifier toPhysicalColumnName(Identifier name, JdbcEnvironment context) {
+        return (name != null) ? new Identifier(name.getText().toUpperCase(), name.isQuoted()): null;
+    }
 }
