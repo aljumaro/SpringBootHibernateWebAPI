@@ -1,12 +1,15 @@
 package com.aljumaro.techtest.domain.user;
 
 import com.aljumaro.techtest.domain.base.BaseEntity;
+import com.aljumaro.techtest.domain.billing.BillingDetails;
 import com.aljumaro.techtest.domain.common.converter.ZipConverter;
 import com.aljumaro.techtest.domain.common.embeddable.Address;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @Date 16/04/2016
@@ -44,6 +47,9 @@ public class User extends BaseEntity {
             column = @Column(name = "BILLING_CITY"))
     })
     protected Address billingAddress;
+
+    @OneToMany(mappedBy = "user")
+    protected Set<BillingDetails> billingDetailsSet = new HashSet<BillingDetails>();
 
     public String getUserName() {
         return userName;
@@ -83,5 +89,13 @@ public class User extends BaseEntity {
 
     public void setBillingAddress(Address billingAddress) {
         this.billingAddress = billingAddress;
+    }
+
+    public Set<BillingDetails> getBillingDetailsSet() {
+        return billingDetailsSet;
+    }
+
+    public void setBillingDetailsSet(Set<BillingDetails> billingDetailsSet) {
+        this.billingDetailsSet = billingDetailsSet;
     }
 }

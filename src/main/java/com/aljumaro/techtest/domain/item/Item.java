@@ -1,6 +1,8 @@
 package com.aljumaro.techtest.domain.item;
 
 import com.aljumaro.techtest.domain.base.BaseEntity;
+import com.aljumaro.techtest.domain.common.embeddable.measures.Dimensions;
+import com.aljumaro.techtest.domain.common.embeddable.measures.Weight;
 import com.aljumaro.techtest.domain.common.type.MonetaryAmount;
 import com.aljumaro.techtest.utilities.Constants;
 
@@ -57,6 +59,10 @@ public class Item extends BaseEntity {
     )
     protected MonetaryAmount initialPrice;
 
+    protected Dimensions dimensions;
+
+    protected Weight weight;
+
     protected Item(){}
 
     public String getName() {
@@ -97,5 +103,21 @@ public class Item extends BaseEntity {
 
     public void setInitialPrice(MonetaryAmount initialPrice) {
         this.initialPrice = initialPrice;
+    }
+
+    public Dimensions getDimensions() {
+        return dimensions;
+    }
+
+    public void setDimensions(Dimensions dimensions) {
+        this.dimensions = dimensions;
+    }
+
+    public Weight getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Weight weight) {
+        this.weight = weight;
     }
 }

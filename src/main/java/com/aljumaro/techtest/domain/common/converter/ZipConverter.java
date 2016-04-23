@@ -7,9 +7,11 @@ import com.aljumaro.techtest.domain.common.type.zip.Zip;
 import javax.persistence.AttributeConverter;
 
 /**
- * @Date 21/04/2016
- * @Time 22:58
- * @Author Juanma
+ * Zip converter class.
+ *
+ * @date 21/04/2016
+ * @author  Juanma
+ * @since   1.0
  */
 public class ZipConverter implements AttributeConverter<Zip, String> {
 
