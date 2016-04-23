@@ -1,6 +1,7 @@
 package com.aljumaro.techtest.domain.item;
 
 import com.aljumaro.techtest.domain.base.BaseEntity;
+import com.aljumaro.techtest.domain.common.embeddable.Image;
 import com.aljumaro.techtest.domain.common.embeddable.measures.Dimensions;
 import com.aljumaro.techtest.domain.common.embeddable.measures.Weight;
 import com.aljumaro.techtest.domain.common.type.MonetaryAmount;
@@ -8,7 +9,7 @@ import com.aljumaro.techtest.utilities.Constants;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.Date;
+import java.util.*;
 
 /**
  * @Date 16/04/2016
@@ -62,6 +63,15 @@ public class Item extends BaseEntity {
     protected Dimensions dimensions;
 
     protected Weight weight;
+
+    @ElementCollection
+    @CollectionTable(name = "IMAGE")
+    @org.hibernate.annotations.CollectionId(
+            columns = @Column(name = "IMAGE_ID"),
+            type = @org.hibernate.annotations.Type(type = "long"),
+            generator = Constants.ID_GENERATOR
+    )
+    protected Collection<Image> images = new ArrayList<Image>();
 
     protected Item(){}
 
@@ -119,5 +129,13 @@ public class Item extends BaseEntity {
 
     public void setWeight(Weight weight) {
         this.weight = weight;
+    }
+
+    public Collection<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Collection<Image> images) {
+        this.images = images;
     }
 }
