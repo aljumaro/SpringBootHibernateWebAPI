@@ -1,6 +1,7 @@
 package com.aljumaro.techtest.domain.item;
 
 import com.aljumaro.techtest.domain.base.BaseEntity;
+import com.aljumaro.techtest.domain.bid.Bid;
 import com.aljumaro.techtest.domain.common.embeddable.Image;
 import com.aljumaro.techtest.domain.common.embeddable.measures.Dimensions;
 import com.aljumaro.techtest.domain.common.embeddable.measures.Weight;
@@ -73,6 +74,14 @@ public class Item extends BaseEntity {
     )
     protected Collection<Image> images = new ArrayList<Image>();
 
+    @OneToMany(
+            mappedBy = "item",
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.REMOVE})
+    protected Set<Bid> bids = new HashSet<Bid>();
+
     protected Item(){}
 
     public String getName() {
@@ -137,5 +146,13 @@ public class Item extends BaseEntity {
 
     public void setImages(Collection<Image> images) {
         this.images = images;
+    }
+
+    public Set<Bid> getBids() {
+        return bids;
+    }
+
+    public void setBids(Set<Bid> bids) {
+        this.bids = bids;
     }
 }

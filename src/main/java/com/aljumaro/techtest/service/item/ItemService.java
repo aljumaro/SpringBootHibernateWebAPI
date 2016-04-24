@@ -10,4 +10,8 @@ import com.aljumaro.techtest.domain.item.Item;
 public interface ItemService {
 
     void save(Item item);
+
+    void saveItemBids(Item item);
+
+    void removeItem(Long id);
 }

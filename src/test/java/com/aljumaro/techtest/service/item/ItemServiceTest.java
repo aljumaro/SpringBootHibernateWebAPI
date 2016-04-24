@@ -26,4 +26,16 @@ public class ItemServiceTest extends BaseServiceTest {
 
         itemService.save(item);
     }
+
+    @Test
+    public void testSaveItemBids() {
+        Item item = ItemBuilder.INSTANCE.mock();
+
+        itemService.saveItemBids(item);
+    }
+
+    @Test
+    public void testRemoveItem(){
+        itemService.removeItem(4L);
+    }
 }
