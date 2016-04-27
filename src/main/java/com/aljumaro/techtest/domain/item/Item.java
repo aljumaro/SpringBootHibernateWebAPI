@@ -6,6 +6,7 @@ import com.aljumaro.techtest.domain.common.embeddable.Image;
 import com.aljumaro.techtest.domain.common.embeddable.measure.Dimensions;
 import com.aljumaro.techtest.domain.common.embeddable.measure.Weight;
 import com.aljumaro.techtest.domain.common.type.MonetaryAmount;
+import com.aljumaro.techtest.domain.item.linkentity.CategorizedItem;
 import com.aljumaro.techtest.domain.user.User;
 import com.aljumaro.techtest.utilities.Constants;
 
@@ -86,12 +87,8 @@ public class Item extends BaseEntity {
             inverseJoinColumns = @JoinColumn(nullable = false))
     protected User buyer;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "CATEGORY_ITEM",
-            joinColumns = @JoinColumn(name = "ITEM_ID"),
-            inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID"))
-    protected Set<Category> categories = new HashSet<Category>();
+    @OneToMany(mappedBy = "item")
+    protected Set<CategorizedItem> categorizedItems = new HashSet<CategorizedItem>();
 
     protected Dimensions dimensions;
 
@@ -179,11 +176,11 @@ public class Item extends BaseEntity {
         this.buyer = buyer;
     }
 
-    public Set<Category> getCategories() {
-        return categories;
+    public Set<CategorizedItem> getCategorizedItems() {
+        return categorizedItems;
     }
 
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
+    public void setCategorizedItems(Set<CategorizedItem> categorizedItems) {
+        this.categorizedItems = categorizedItems;
     }
 }

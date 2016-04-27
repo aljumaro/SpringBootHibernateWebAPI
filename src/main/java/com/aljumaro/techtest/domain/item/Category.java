@@ -1,6 +1,7 @@
 package com.aljumaro.techtest.domain.item;
 
 import com.aljumaro.techtest.domain.base.BaseEntity;
+import com.aljumaro.techtest.domain.item.linkentity.CategorizedItem;
 import com.aljumaro.techtest.utilities.Constants;
 
 import javax.persistence.*;
@@ -19,8 +20,8 @@ public class Category extends BaseEntity {
     @NotNull
     private String name;
 
-    @ManyToMany(mappedBy = "categories")
-    protected Set<Item> items = new HashSet<Item>();
+    @OneToMany(mappedBy = "category")
+    protected Set<CategorizedItem> categorizedItems = new HashSet<CategorizedItem>();
 
     protected Category(){}
 
@@ -36,11 +37,11 @@ public class Category extends BaseEntity {
         this.name = name;
     }
 
-    public Set<Item> getItems() {
-        return items;
+    public Set<CategorizedItem> getCategorizedItems() {
+        return categorizedItems;
     }
 
-    public void setItems(Set<Item> items) {
-        this.items = items;
+    public void setCategorizedItems(Set<CategorizedItem> categorizedItems) {
+        this.categorizedItems = categorizedItems;
     }
 }

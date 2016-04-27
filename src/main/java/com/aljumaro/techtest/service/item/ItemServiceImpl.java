@@ -5,6 +5,7 @@ import com.aljumaro.techtest.domain.common.type.MonetaryAmount;
 import com.aljumaro.techtest.domain.item.Category;
 import com.aljumaro.techtest.domain.item.Item;
 import com.aljumaro.techtest.domain.item.ItemBuilder;
+import com.aljumaro.techtest.domain.item.linkentity.CategorizedItem;
 import com.aljumaro.techtest.persistence.item.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -67,21 +68,29 @@ public class ItemServiceImpl implements ItemService {
     public void setCategories() {
         Category category1 = new Category("Cat 1");
         Category category2 = new Category("Cat 2");
+        em.persist(category1);
+        em.persist(category2);
 
         Item item1 = ItemBuilder.INSTANCE.mock();
         Item item2 = ItemBuilder.INSTANCE.mock();
-
-        category1.getItems().add(item1);
-        item1.getCategories().add(category1);
-
-        category2.getItems().add(item2);
-        item2.getCategories().add(category2);
-
-        category1.getItems().add(item2);
-        item2.getCategories().add(category1);
-
         em.persist(item1);
         em.persist(item2);
+
+        CategorizedItem linkOne = new CategorizedItem(
+                "test", category1, item1
+        );
+
+        em.persist(linkOne);
+
+        CategorizedItem linkTwo = new CategorizedItem(
+                "test", category1, item2
+        );
+        em.persist(linkTwo);
+
+        CategorizedItem linkThree = new CategorizedItem(
+                "test", category2, item1
+        );
+        em.persist(linkThree);
 
     }
 }
