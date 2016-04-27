@@ -3,9 +3,10 @@ package com.aljumaro.techtest.domain.item;
 import com.aljumaro.techtest.domain.base.BaseEntity;
 import com.aljumaro.techtest.domain.bid.Bid;
 import com.aljumaro.techtest.domain.common.embeddable.Image;
-import com.aljumaro.techtest.domain.common.embeddable.measures.Dimensions;
-import com.aljumaro.techtest.domain.common.embeddable.measures.Weight;
+import com.aljumaro.techtest.domain.common.embeddable.measure.Dimensions;
+import com.aljumaro.techtest.domain.common.embeddable.measure.Weight;
 import com.aljumaro.techtest.domain.common.type.MonetaryAmount;
+import com.aljumaro.techtest.domain.user.User;
 import com.aljumaro.techtest.utilities.Constants;
 
 import javax.persistence.*;
@@ -61,10 +62,6 @@ public class Item extends BaseEntity {
     )
     protected MonetaryAmount initialPrice;
 
-    protected Dimensions dimensions;
-
-    protected Weight weight;
-
     @ElementCollection
     @CollectionTable(name = "IMAGE")
     @org.hibernate.annotations.CollectionId(
@@ -81,6 +78,24 @@ public class Item extends BaseEntity {
                     CascadeType.PERSIST,
                     CascadeType.REMOVE})
     protected Set<Bid> bids = new HashSet<Bid>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "ITEM_BUYER",
+            joinColumns = @JoinColumn(name = "ITEM_ID"),
+            inverseJoinColumns = @JoinColumn(nullable = false))
+    protected User buyer;
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "CATEGORY_ITEM",
+            joinColumns = @JoinColumn(name = "ITEM_ID"),
+            inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID"))
+    protected Set<Category> categories = new HashSet<Category>();
+
+    protected Dimensions dimensions;
+
+    protected Weight weight;
 
     protected Item(){}
 
@@ -154,5 +169,21 @@ public class Item extends BaseEntity {
 
     public void setBids(Set<Bid> bids) {
         this.bids = bids;
+    }
+
+    public User getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(User buyer) {
+        this.buyer = buyer;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }

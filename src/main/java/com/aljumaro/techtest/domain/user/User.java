@@ -4,6 +4,7 @@ import com.aljumaro.techtest.domain.base.BaseEntity;
 import com.aljumaro.techtest.domain.billing.BillingDetails;
 import com.aljumaro.techtest.domain.common.converter.ZipConverter;
 import com.aljumaro.techtest.domain.common.embeddable.Address;
+import com.aljumaro.techtest.domain.item.Item;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -51,6 +52,9 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     protected Set<BillingDetails> billingDetailsSet = new HashSet<BillingDetails>();
 
+    @OneToMany(mappedBy = "buyer")
+    protected Set<Item> boughtItems = new HashSet<Item>();
+
     public String getUserName() {
         return userName;
     }
@@ -97,5 +101,13 @@ public class User extends BaseEntity {
 
     public void setBillingDetailsSet(Set<BillingDetails> billingDetailsSet) {
         this.billingDetailsSet = billingDetailsSet;
+    }
+
+    public Set<Item> getBoughtItems() {
+        return boughtItems;
+    }
+
+    public void setBoughtItems(Set<Item> boughtItems) {
+        this.boughtItems = boughtItems;
     }
 }

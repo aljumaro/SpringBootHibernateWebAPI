@@ -1,4 +1,4 @@
-package com.aljumaro.techtest.domain.common.embeddable.measures;
+package com.aljumaro.techtest.domain.common.embeddable.measure;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;

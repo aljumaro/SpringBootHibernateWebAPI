@@ -6,6 +6,8 @@ import com.aljumaro.techtest.service.base.BaseServiceTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.EntityManager;
+
 /**
  * @Date 16/04/2016
  * @Time 16:56
@@ -14,11 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ItemServiceTest extends BaseServiceTest {
 
     private ItemService itemService;
+    private EntityManager em;
 
     @Autowired
     public void setItemService(ItemService itemService) {
         this.itemService = itemService;
     }
+
+    @Autowired
+    public void setEm(EntityManager entityManager){ this.em = entityManager; }
 
     @Test
     public void testSaveItem() {
@@ -37,5 +43,10 @@ public class ItemServiceTest extends BaseServiceTest {
     @Test
     public void testRemoveItem(){
         itemService.removeItem(4L);
+    }
+
+    @Test
+    public void testCategoryItem(){
+        itemService.setCategories();
     }
 }

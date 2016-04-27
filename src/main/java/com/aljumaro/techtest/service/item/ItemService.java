@@ -14,4 +14,6 @@ public interface ItemService {
     void saveItemBids(Item item);
 
     void removeItem(Long id);
+
+    void setCategories();
 }

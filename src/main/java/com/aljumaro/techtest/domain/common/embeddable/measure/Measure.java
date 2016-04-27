@@ -1,4 +1,4 @@
-package com.aljumaro.techtest.domain.common.embeddable.measures;
+package com.aljumaro.techtest.domain.common.embeddable.measure;
 
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
