@@ -49,4 +49,12 @@ public class ItemServiceTest extends BaseServiceTest {
     public void testCategoryItem(){
         itemService.setCategories();
     }
+
+    @Test
+    public void queryTest() {
+        itemService.queryTesting();
+    }
+
+    @Test
+    public void queryHintsTest() { itemService.queryHints(); }
 }

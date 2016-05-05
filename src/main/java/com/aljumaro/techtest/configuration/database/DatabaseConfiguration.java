@@ -25,8 +25,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class DatabaseConfiguration {
 
-    public static final String DATABASE_PLATFORM = "org.hibernate.dialect.MySQL57InnoDBDialect";
-    public static final String PACKAGE_TO_SCAN = "com.aljumaro.techtest";
+
 
     @Autowired
     private DataSourceProperties dataSourceProperties;
@@ -48,9 +47,26 @@ public class DatabaseConfiguration {
         adapter.setDatabase(Database.MYSQL);
         adapter.setShowSql(Boolean.TRUE);
         adapter.setGenerateDdl(Boolean.TRUE);
-        adapter.setDatabasePlatform(DATABASE_PLATFORM);
+        adapter.setDatabasePlatform(HibernateConstants.DATABASE_PLATFORM);
 
         return adapter;
+    }
+
+    public Properties getJpaProperties(){
+        Properties jpaProperties = new Properties();
+        jpaProperties.put(
+                "hibernate.physical_naming_strategy",
+                "com.aljumaro.techtest.configuration.database.CENamingStrategy");
+
+        jpaProperties.put(
+                "hibernate.hbm2ddl.auto",
+                "update");
+
+        jpaProperties.put(
+                "hibernate.format_sql",
+                "true");
+
+        return jpaProperties;
     }
 
     @Bean(name = "entityManagerFactory")
@@ -59,15 +75,11 @@ public class DatabaseConfiguration {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
-        entityManagerFactoryBean.setPackagesToScan(PACKAGE_TO_SCAN);
-
-        Properties jpaProperties = new Properties();
-
-        jpaProperties.put(HibernateProperties.PHYSICAL_NAMING_STRATEGY, HibernateProperties.PHYSICAL_NAMING_STRATEGY_VALUE);
-        jpaProperties.put(HibernateProperties.HBM2DDL_AUTO, HibernateProperties.HBM2DDL_AUTO_VALUE);
-
-        entityManagerFactoryBean.setJpaProperties(jpaProperties);
+        entityManagerFactoryBean.setPackagesToScan(HibernateConstants.PACKAGE_TO_SCAN);
+        entityManagerFactoryBean.setJpaProperties(getJpaProperties());
         entityManagerFactoryBean.afterPropertiesSet();
+        entityManagerFactoryBean.setMappingResources(HibernateConstants.ITEM_ENTITY_MAPPINGS);
+        entityManagerFactoryBean.setMappingResources(HibernateConstants.ITEM_HIBERNATE_MAPPINGS);
         return entityManagerFactoryBean;
     }
 

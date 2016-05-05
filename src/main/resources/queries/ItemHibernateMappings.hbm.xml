@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping">
+
+    <query name="findItemsOrderByAuctionEnd"
+        cache-mode="ignore"
+        comment="Finds all the items and orders them by auctionEnd ascending"
+        fetch-size="20"
+        read-only="true"
+        timeout="60">
+        <![CDATA[
+            select i from Item i order by i.auctionEnd asc
+        ]]>
+    </query>
+
+</hibernate-mapping>

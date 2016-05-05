@@ -78,6 +78,9 @@ public class Item extends BaseEntity {
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.REMOVE})
+    @org.hibernate.annotations.LazyCollection(
+            org.hibernate.annotations.LazyCollectionOption.EXTRA
+    )
     protected Set<Bid> bids = new HashSet<Bid>();
 
     @ManyToOne(fetch = FetchType.LAZY)

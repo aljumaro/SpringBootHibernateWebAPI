@@ -16,4 +16,8 @@ public interface ItemService {
     void removeItem(Long id);
 
     void setCategories();
+
+    void queryTesting();
+
+    void queryHints();
 }

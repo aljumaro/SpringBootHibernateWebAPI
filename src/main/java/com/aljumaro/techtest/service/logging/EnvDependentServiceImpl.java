@@ -13,7 +13,7 @@ public class EnvDependentServiceImpl implements EnvDependentService {
     static final Logger LOG = LoggerFactory.getLogger(EnvDependentServiceImpl.class);
 
     public void log(String message) {
-        LOG.info("default: " + message);
+        LOG.info(message + "\n\n");
     }
 
 }
