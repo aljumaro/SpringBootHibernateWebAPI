@@ -1,4 +1,4 @@
-package com.aljumaro.techtest.service.item;
+package com.aljumaro.techtest.service.query;
 
 import com.aljumaro.techtest.domain.bid.Bid;
 import com.aljumaro.techtest.domain.common.type.MonetaryAmount;
@@ -31,7 +31,7 @@ import java.util.Locale;
  */
 @Component
 @Transactional
-public class ItemServiceImpl implements ItemService {
+public class QueryTestServiceImpl implements QueryTestService {
 
     private ItemRepository itemRepository;
     private EntityManager em;

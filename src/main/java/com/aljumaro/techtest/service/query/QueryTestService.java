@@ -1,4 +1,4 @@
-package com.aljumaro.techtest.service.item;
+package com.aljumaro.techtest.service.query;
 
 import com.aljumaro.techtest.domain.item.Item;
 
@@ -7,7 +7,7 @@ import com.aljumaro.techtest.domain.item.Item;
  * @Time 16:55
  * @Author Juanma
  */
-public interface ItemService {
+public interface QueryTestService {
 
     void save(Item item);
 

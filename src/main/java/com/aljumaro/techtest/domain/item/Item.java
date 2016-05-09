@@ -26,7 +26,7 @@ public class Item extends BaseEntity {
     @Size(
             min = 2,
             max = 255,
-            message = "validation.error.item.name"
+            message = "validation.error.query.name"
     )
     @Access(AccessType.PROPERTY)
     protected String name;
@@ -73,7 +73,7 @@ public class Item extends BaseEntity {
     protected Collection<Image> images = new ArrayList<Image>();
 
     @OneToMany(
-            mappedBy = "item",
+            mappedBy = "query",
             fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -90,7 +90,7 @@ public class Item extends BaseEntity {
             inverseJoinColumns = @JoinColumn(nullable = false))
     protected User buyer;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "query")
     protected Set<CategorizedItem> categorizedItems = new HashSet<CategorizedItem>();
 
     protected Dimensions dimensions;

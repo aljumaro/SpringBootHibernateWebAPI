@@ -1,4 +1,4 @@
-package com.aljumaro.techtest.service.item;
+package com.aljumaro.techtest.service.query;
 
 import com.aljumaro.techtest.domain.item.Item;
 import com.aljumaro.techtest.domain.item.ItemBuilder;
@@ -13,14 +13,14 @@ import javax.persistence.EntityManager;
  * @Time 16:56
  * @Author Juanma
  */
-public class ItemServiceTest extends BaseServiceTest {
+public class QueryTestServiceTest extends BaseServiceTest {
 
-    private ItemService itemService;
+    private QueryTestService queryTestService;
     private EntityManager em;
 
     @Autowired
-    public void setItemService(ItemService itemService) {
-        this.itemService = itemService;
+    public void setQueryTestService(QueryTestService queryTestService) {
+        this.queryTestService = queryTestService;
     }
 
     @Autowired
@@ -30,31 +30,31 @@ public class ItemServiceTest extends BaseServiceTest {
     public void testSaveItem() {
         Item item = ItemBuilder.INSTANCE.mock();
 
-        itemService.save(item);
+        queryTestService.save(item);
     }
 
     @Test
     public void testSaveItemBids() {
         Item item = ItemBuilder.INSTANCE.mock();
 
-        itemService.saveItemBids(item);
+        queryTestService.saveItemBids(item);
     }
 
     @Test
     public void testRemoveItem(){
-        itemService.removeItem(4L);
+        queryTestService.removeItem(4L);
     }
 
     @Test
     public void testCategoryItem(){
-        itemService.setCategories();
+        queryTestService.setCategories();
     }
 
     @Test
     public void queryTest() {
-        itemService.queryTesting();
+        queryTestService.queryTesting();
     }
 
     @Test
-    public void queryHintsTest() { itemService.queryHints(); }
+    public void queryHintsTest() { queryTestService.queryHints(); }
 }
