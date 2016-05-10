@@ -6,7 +6,7 @@ import com.aljumaro.techtest.domain.item.Category;
 import com.aljumaro.techtest.domain.item.Item;
 import com.aljumaro.techtest.domain.item.ItemBuilder;
 import com.aljumaro.techtest.domain.item.linkentity.CategorizedItem;
-import com.aljumaro.techtest.persistence.item.ItemRepository;
+import com.aljumaro.techtest.persistence.query.QueryTestRepository;
 import com.aljumaro.techtest.service.logging.EnvDependentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,13 +33,13 @@ import java.util.Locale;
 @Transactional
 public class QueryTestServiceImpl implements QueryTestService {
 
-    private ItemRepository itemRepository;
+    private QueryTestRepository queryTestRepository;
     private EntityManager em;
     private EnvDependentService logService;
 
     @Autowired
-    private void setItemRepository(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
+    private void setQueryTestRepository(QueryTestRepository queryTestRepository) {
+        this.queryTestRepository = queryTestRepository;
     }
 
     @Autowired
@@ -54,14 +54,14 @@ public class QueryTestServiceImpl implements QueryTestService {
 
     @Override
     public void save(Item item) {
-        itemRepository.save(item);
+        queryTestRepository.save(item);
     }
 
     @Override
     public void saveItemBids(Item item) {
         Long id = item.getId();
 
-        itemRepository.save(item);
+        queryTestRepository.save(item);
 
         for (int i = 0; i < 100; i++) {
             MonetaryAmount ma = new MonetaryAmount(new BigDecimal(i), Currency.getInstance(Locale.getDefault()));

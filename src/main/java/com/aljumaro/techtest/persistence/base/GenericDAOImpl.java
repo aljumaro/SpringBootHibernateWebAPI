@@ -72,4 +72,5 @@ public abstract class GenericDAOImpl<T, ID extends Serializable> implements Gene
     public void checkVersion(T entity, boolean forceUpdate) {
         em.lock(entity, forceUpdate ? LockModeType.OPTIMISTIC_FORCE_INCREMENT: LockModeType.OPTIMISTIC);
     }
+
 }

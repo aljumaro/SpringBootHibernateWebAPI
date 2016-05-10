@@ -73,7 +73,7 @@ public class Item extends BaseEntity {
     protected Collection<Image> images = new ArrayList<Image>();
 
     @OneToMany(
-            mappedBy = "query",
+            mappedBy = "item",
             fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -90,7 +90,7 @@ public class Item extends BaseEntity {
             inverseJoinColumns = @JoinColumn(nullable = false))
     protected User buyer;
 
-    @OneToMany(mappedBy = "query")
+    @OneToMany(mappedBy = "item")
     protected Set<CategorizedItem> categorizedItems = new HashSet<CategorizedItem>();
 
     protected Dimensions dimensions;
