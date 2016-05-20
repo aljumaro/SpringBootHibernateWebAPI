@@ -5,8 +5,10 @@ import com.aljumaro.techtest.domain.item.dto.ItemBidSummary;
 import com.aljumaro.techtest.domain.item.dto.ItemSummary;
 import com.aljumaro.techtest.persistence.base.GenericDAO;
 import com.aljumaro.techtest.persistence.base.GenericDAOImpl;
+import com.aljumaro.techtest.persistence.util.pagination.Page;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -58,9 +60,8 @@ public class ItemDAOImpl extends GenericDAOImpl<Item, Long> implements ItemDAO {
     public List<ItemBidSummary> findItemBidSummaries() {
         CriteriaQuery<ItemBidSummary> cq = em.getCriteriaBuilder().createQuery(ItemBidSummary.class);
         Root<ItemBidSummary> i = cq.from(ItemBidSummary.class);
-        cq.select(i);
 
-        return em.createQuery(cq).getResultList();
+        return em.createQuery(cq.select(i)).getResultList();
     }
 
     @Override
@@ -76,5 +77,21 @@ public class ItemDAOImpl extends GenericDAOImpl<Item, Long> implements ItemDAO {
         );
 
         return em.createQuery(cq).getResultList();
+    }
+
+    @Override
+    public List<ItemSummary> getItemBidSummaries(Page page) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<ItemSummary> cq = cb.createQuery(ItemSummary.class);
+        Root<Item> i = cq.from(Item.class);
+        cq.select(
+                cb.construct(
+                        ItemSummary.class,
+                        i.get("id"), i.get("name"), i.get("auctionEnd")
+                )
+        );
+
+        TypedQuery<ItemSummary> query = page.createQuery(em, cq, i);
+        return query.getResultList();
     }
 }

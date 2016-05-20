@@ -3,6 +3,7 @@ package com.aljumaro.techtest.service.item;
 import com.aljumaro.techtest.domain.item.Item;
 import com.aljumaro.techtest.domain.item.dto.ItemBidSummary;
 import com.aljumaro.techtest.domain.item.dto.ItemSummary;
+import com.aljumaro.techtest.persistence.util.pagination.Page;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface ItemService {
     Item save(Item mock);
 
     List<Item> findByName(String name, boolean substring);
+
+    List<ItemSummary> getItemBidSummaries(Page page);
 }

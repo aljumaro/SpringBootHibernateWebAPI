@@ -4,6 +4,7 @@ import com.aljumaro.techtest.domain.item.Item;
 import com.aljumaro.techtest.domain.item.dto.ItemBidSummary;
 import com.aljumaro.techtest.domain.item.dto.ItemSummary;
 import com.aljumaro.techtest.persistence.item.ItemDAO;
+import com.aljumaro.techtest.persistence.util.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,5 +55,10 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<Item> findByName(String name, boolean substring) {
         return itemDAO.findByName(name, substring);
+    }
+
+    @Override
+    public List<ItemSummary> getItemBidSummaries(Page page) {
+        return itemDAO.getItemBidSummaries(page);
     }
 }

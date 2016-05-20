@@ -4,9 +4,11 @@ import com.aljumaro.techtest.domain.item.Item;
 import com.aljumaro.techtest.domain.item.ItemBuilder;
 import com.aljumaro.techtest.domain.item.dto.ItemBidSummary;
 import com.aljumaro.techtest.domain.item.dto.ItemSummary;
-import com.aljumaro.techtest.persistence.item.ItemDAO;
+import com.aljumaro.techtest.domain.item.Item_;
+import com.aljumaro.techtest.persistence.util.pagination.OffsetPage;
+import com.aljumaro.techtest.persistence.util.pagination.Page;
+import com.aljumaro.techtest.persistence.util.pagination.SeekPage;
 import com.aljumaro.techtest.service.base.BaseServiceTest;
-import com.aljumaro.techtest.service.logging.EnvDependentServiceImpl;
 import org.hibernate.LazyInitializationException;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -99,6 +101,44 @@ public class ItemServiceTest extends BaseServiceTest {
         boolean exists = itemExists(sub, true, queryResult);
 
         Assert.assertTrue("Item must exist", exists);
+    }
+
+    @Test
+    public void testGetItemBidSummariesOffsetPage() {
+        int size = 10;
+        Long count = itemService.count();
+        getItemSummariesOrderByNameAscendant(size, new OffsetPage(size, count, Item_.name, Page.SortDirection.ASC, Item_.name, Item_.auctionEnd));
+    }
+
+    @Test
+    public void testGetItemBidSummariesSeekPage() {
+        int size = 2;
+        Long count = itemService.count();
+        SeekPage page = new SeekPage(size, count, Item_.name, Page.SortDirection.ASC, Item_.id, Item_.name, Item_.auctionEnd);
+
+        List<ItemSummary> res = getItemSummariesOrderByNameAscendant(size, page);
+
+        ItemSummary lastItemSummary = res.get(res.size() - 1);
+        page.setLastValue(lastItemSummary.getName());
+        page.setLastUniqueValue(lastItemSummary.getItemId());
+
+        getItemSummariesOrderByNameAscendant(size, page);
+    }
+
+    private List<ItemSummary> getItemSummariesOrderByNameAscendant(int size, Page page) {
+        Long count = itemService.count();
+
+        List<ItemSummary> res = itemService.getItemBidSummaries(page);
+
+        Assert.assertTrue(String.format("Result list must be %d size", size), size > count.intValue() ? res.size() == count.intValue() : res.size() == size);
+        for (int i = 0; i < res.size(); i+=2) {
+            String name1 = res.get(i).getName();
+            String name2 = res.get(i + 1).getName();
+
+            Assert.assertTrue("The list must be ordered by name ascendant", name1.compareTo(name2) == -1);
+        }
+
+        return res;
     }
 
     private Item createMockItem(String name) {
