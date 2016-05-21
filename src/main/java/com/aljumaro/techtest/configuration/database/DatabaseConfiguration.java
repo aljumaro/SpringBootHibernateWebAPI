@@ -25,8 +25,6 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class DatabaseConfiguration {
 
-
-
     @Autowired
     private DataSourceProperties dataSourceProperties;
 
@@ -79,7 +77,7 @@ public class DatabaseConfiguration {
         entityManagerFactoryBean.setJpaProperties(getJpaProperties());
         entityManagerFactoryBean.afterPropertiesSet();
         entityManagerFactoryBean.setMappingResources(HibernateConstants.ITEM_ENTITY_MAPPINGS);
-        entityManagerFactoryBean.setMappingResources(HibernateConstants.ITEM_HIBERNATE_MAPPINGS);
+        //entityManagerFactoryBean.setMappingResources(HibernateConstants.ITEM_HIBERNATE_MAPPINGS);
         return entityManagerFactoryBean;
     }
 

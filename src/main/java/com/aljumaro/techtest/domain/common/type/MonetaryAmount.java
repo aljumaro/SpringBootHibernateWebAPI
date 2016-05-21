@@ -3,6 +3,7 @@ package com.aljumaro.techtest.domain.common.type;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.Locale;
 
 /**
  * @Date 21/04/2016
@@ -14,6 +15,11 @@ public class MonetaryAmount implements Serializable {
     private static final String SEPARATOR = " ";
     protected final BigDecimal value;
     protected final Currency currency;
+
+    private MonetaryAmount(){
+        value = new BigDecimal(1);
+        currency = Currency.getInstance(Locale.getDefault());
+    }
 
     public MonetaryAmount(BigDecimal value, Currency currency) {
         this.value = value;

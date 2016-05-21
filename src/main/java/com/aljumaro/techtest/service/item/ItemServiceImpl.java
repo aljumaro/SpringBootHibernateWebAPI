@@ -1,5 +1,7 @@
 package com.aljumaro.techtest.service.item;
 
+import com.aljumaro.techtest.domain.bid.Bid;
+import com.aljumaro.techtest.domain.common.type.MonetaryAmount;
 import com.aljumaro.techtest.domain.item.Item;
 import com.aljumaro.techtest.domain.item.dto.ItemBidSummary;
 import com.aljumaro.techtest.domain.item.dto.ItemSummary;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.LockModeType;
 import java.util.List;
 
 /**
@@ -17,6 +20,7 @@ import java.util.List;
  * @Author Juanma
  */
 @Component
+@Transactional
 public class ItemServiceImpl implements ItemService {
 
     private ItemDAO itemDAO;
@@ -47,7 +51,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    @Transactional
     public Item save(Item item) {
         return itemDAO.makePersistent(item);
     }
@@ -60,5 +63,18 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ItemSummary> getItemBidSummaries(Page page) {
         return itemDAO.getItemBidSummaries(page);
+    }
+
+    @Override
+    public Item findById(Long id) {
+        return itemDAO.findById(id);
+    }
+
+    @Override
+    public Bid placeBid(Long itemId, String bidder, MonetaryAmount monetaryAmount) {
+        Item item = itemDAO.findReferenceById(itemId);
+        Bid bid = new Bid(monetaryAmount, bidder, item);
+        item.getBids().add(bid);
+        return bid;
     }
 }

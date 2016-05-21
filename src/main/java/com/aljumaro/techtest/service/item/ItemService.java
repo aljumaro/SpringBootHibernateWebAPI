@@ -1,5 +1,7 @@
 package com.aljumaro.techtest.service.item;
 
+import com.aljumaro.techtest.domain.bid.Bid;
+import com.aljumaro.techtest.domain.common.type.MonetaryAmount;
 import com.aljumaro.techtest.domain.item.Item;
 import com.aljumaro.techtest.domain.item.dto.ItemBidSummary;
 import com.aljumaro.techtest.domain.item.dto.ItemSummary;
@@ -27,4 +29,8 @@ public interface ItemService {
     List<Item> findByName(String name, boolean substring);
 
     List<ItemSummary> getItemBidSummaries(Page page);
+
+    Item findById(Long id);
+
+    Bid placeBid(Long itemId, String bidder, MonetaryAmount monetaryAmount);
 }

@@ -59,8 +59,6 @@ public class QueryTestServiceImpl implements QueryTestService {
 
     @Override
     public void saveItemBids(Item item) {
-        Long id = item.getId();
-
         queryTestRepository.save(item);
 
         for (int i = 0; i < 100; i++) {
