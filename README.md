@@ -1,4 +1,4 @@
 # SpringBootHibernateWebAPI
-Prueba de web API con SpringBoot e Hibernate
+SpringBoot and hibernate webapi
 
-Cambios en el README.md
+Ended: no more changes.
